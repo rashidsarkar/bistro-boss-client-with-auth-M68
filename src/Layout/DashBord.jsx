@@ -1,5 +1,6 @@
 import {
   TiCalendar,
+  TiContacts,
   TiHome,
   TiShoppingCart,
   TiStar,
@@ -12,6 +13,8 @@ import useCart from "../hooks/useCart";
 
 function DashBord() {
   const { carts } = useCart();
+  //TODO - get isAdmin value from the database
+  const isAdmin = true;
   return (
     <div className="flex">
       {/* side Bar Content */}
@@ -43,6 +46,7 @@ function DashBord() {
               <TbList /> My Booking
             </NavLink>
           </li>
+          {/* //NOTE - Sahred NavLinks */}
           <div className="divider"></div>
           <li>
             <NavLink to={"/"}>
@@ -57,6 +61,11 @@ function DashBord() {
           <li>
             <NavLink to={"/menu"}>
               <TiThMenu /> Menu
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/order/contact"}>
+              <TiContacts /> Contact
             </NavLink>
           </li>
         </ul>
