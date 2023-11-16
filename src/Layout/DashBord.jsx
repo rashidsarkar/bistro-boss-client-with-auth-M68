@@ -1,15 +1,18 @@
 import {
+  TiBook,
   TiCalendar,
   TiContacts,
   TiHome,
   TiShoppingCart,
   TiStar,
+  TiThList,
   TiThMenu,
 } from "react-icons/ti";
-import { TbBrandBooking, TbList } from "react-icons/tb";
+import { TbBrandBooking, TbList, TbUsers } from "react-icons/tb";
 import { NavLink, Outlet } from "react-router-dom";
 import { IoBagAddSharp } from "react-icons/io5";
 import useCart from "../hooks/useCart";
+import { FaUtensils } from "react-icons/fa";
 
 function DashBord() {
   const { carts } = useCart();
@@ -20,32 +23,65 @@ function DashBord() {
       {/* side Bar Content */}
       <div className="w-64 min-h-screen bg-orange-400">
         <ul className="p-4 menu">
-          <li>
-            <NavLink to={"/dashBord/userHome"}>
-              <TiHome /> User Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/dashBord/reservation"}>
-              <TiCalendar /> Reservation
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/dashBord/review"}>
-              <TiStar />
-              Add Review
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/dashBord/cart"}>
-              <TiShoppingCart /> My Cart ({carts?.length})
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/dashBord/myBooking"}>
-              <TbList /> My Booking
-            </NavLink>
-          </li>
+          {isAdmin ? (
+            <>
+              <li>
+                <NavLink to={"/dashBord/adminHome"}>
+                  <TiHome /> Admin Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashBord/addItems"}>
+                  <FaUtensils /> Add Item
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashBord/bookings"}>
+                  <TiBook />
+                  Manage Bookings
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashBord/manageItem"}>
+                  <TiThList /> Manage Items
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashBord/allUsers"}>
+                  <TbUsers /> All Users
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <NavLink to={"/dashBord/userHome"}>
+                  <TiHome /> User Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashBord/reservation"}>
+                  <TiCalendar /> Reservation
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashBord/review"}>
+                  <TiStar />
+                  Add Review
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashBord/cart"}>
+                  <TiShoppingCart /> My Cart ({carts?.length})
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/dashBord/myBooking"}>
+                  <TbList /> My Booking
+                </NavLink>
+              </li>
+            </>
+          )}
           {/* //NOTE - Sahred NavLinks */}
           <div className="divider"></div>
           <li>
