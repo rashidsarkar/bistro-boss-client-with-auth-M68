@@ -13,11 +13,7 @@ function Allusers() {
   } = useQuery({
     queryKey: ["allUsers"],
     queryFn: async () => {
-      const res = await axiosSecure.get("api/allUsers", {
-        headers: {
-          Authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
+      const res = await axiosSecure.get("api/allUsers");
       return res.data;
     },
   });
