@@ -10,12 +10,14 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
+  const { axiosPublic } = useAxiosPublic();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -61,10 +63,18 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       // console.log("current user", currentUser);
+
       if (currentUser) {
         //NOTE - get token and store client side
+        const userInfo = { email: currentUser.email };
+        axiosPublic.post("/jwt", userInfo).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("accessToken", res.data.token);
+          }
+        });
       } else {
         // TODO removed token ( if token stored in the client side : Local storage , caching , in memory )
+        localStorage.removeItem("accessToken");
       }
       setLoading(false);
     });
