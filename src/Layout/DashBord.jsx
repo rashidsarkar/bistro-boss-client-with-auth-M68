@@ -13,11 +13,13 @@ import { NavLink, Outlet } from "react-router-dom";
 import { IoBagAddSharp } from "react-icons/io5";
 import useCart from "../hooks/useCart";
 import { FaUtensils } from "react-icons/fa";
+import useAdmin from "../hooks/useAdmin";
 
 function DashBord() {
   const { carts } = useCart();
   //TODO - get isAdmin value from the database
-  const isAdmin = true;
+  const { isAdmin } = useAdmin();
+  // const isAdmin = true;
   return (
     <div className="flex">
       {/* side Bar Content */}
